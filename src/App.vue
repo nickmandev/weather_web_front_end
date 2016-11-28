@@ -111,6 +111,7 @@ span .form-control-feedback {
 </style>
 <script>
 import auth from './auth/auth.js'
+import config from './auth/config.js'
 import Favorite from './components/Favorite.vue'
 import Search from './components/Search.vue'
 
@@ -186,7 +187,7 @@ export default {
     watch:{
         current_user: function getFavorites(){
             var id = this.$store.state.current_user.id
-            this.$http.get('http://localhost:9292/api/forecast',{params:{'id':id}} ).then(function(data){
+            this.$http.get(config.baseURL+forecastURL,{params:{'id':id}} ).then(function(data){
                 this.$store.commit('setFavorites',data.body['favorites'])
             }),(response) => {
                 console.log(response)

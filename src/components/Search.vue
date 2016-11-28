@@ -19,12 +19,21 @@
                 <li class="list-group-item" v-for="city in multipleCitys">
                     <h5>
                         City: {{ city.city_name }}, Country: {{ city.country }}
+                        <button class="btn btn-default btn-xs" @click="viewMap(city.latitude,city.longitude)">View map</button>
                         <button class="btn btn-default btn-xs pull-right"  @click="oneCityForecast(city.city_id)">
                             Weather
                         </button>
                     </h5>
                 </li>
             </ul>
+        </div>
+        <div class="well" v-if="showImg">
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-3">
+                    <h3>To close the image click on it.</h3>
+                    <img :src="url"  @click="showImg = false">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +44,7 @@
 }
 </style>
 <script>
+import map from '../auth/googleApiKey.js'
     export default{
         name:'search',
         data: function(){
@@ -42,6 +52,8 @@
                 oneCity: [],
                 multipleCitys: [],
                 show: '',
+                url: '',
+                showImg: false
             }
         },
         methods:{
@@ -50,13 +62,19 @@
             },
             oneCityForecast: function(city_id){
                 var param = city_id
-                this.$http.get('http://localhost:9292/api/multiple_results',{params:{'city_id': param}}).then(function(data){
+                this.$http.get(config.baseURL+config.multipleResultsURL,{params:{'city_id': param}}).then(function(data){
                     var parsed = JSON.parse(data.body)
                     this.oneCity = parsed
                     this.multipleCitys = []
                 }),(response)=>{
                     console.log('Fail')
                 }
+            },
+            viewMap: function(lat,long){
+                let URL = config.googleApiURL + lat + ","+ long + config.googleApiOptions + config.googleApiKey
+                    this.url = URL
+                    console.log(this.url)
+                    this.showImg = true
             }
         },
         computed:{
@@ -68,7 +86,7 @@
             test: function(){
                 var param = this.$store.state.cityName
                 console.log(param)
-                this.$http.get('http://localhost:9292/api/result', {params:{'city_name': this.$store.state.cityName}}).then(function(data){
+                this.$http.get(config.baseURL+config.resultURL, {params:{'city_name': this.$store.state.cityName}}).then(function(data){
                     var parsed = JSON.parse(data.body)
                     if(parsed.result){
                     this.oneCity = parsed
@@ -79,8 +97,7 @@
                     console.log('Fail')
                 }
                 }
-            }
-
-
+        }
+        
     }
 </script>

@@ -25,6 +25,7 @@
 </style>
 <script>
 import auth from '../auth/auth.js'
+import config from '../auth/config.js'
 import Modal from '../components/Modal.vue'
 export default{
     name: "manage-favorites",
@@ -36,7 +37,7 @@ export default{
     methods:{
         removeCity: function(obj){
             var user_id = this.$store.state.current_user['id']
-            this.$http.delete('http://localhost:9292/api/remove_favorite',
+            this.$http.delete(config.baseURL+config.removeFavoriteURL,
             {params:{"id":obj['city_id'], "user_id": user_id}}, {emulateJSON: true}).then(function(data){
                 this.$store.commit('setFavorites', JSON.parse(data.body))
             }),(response)=>{

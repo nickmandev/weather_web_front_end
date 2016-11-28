@@ -33,6 +33,7 @@
 
 <script>
 import auth from '../auth/auth.js'
+import config from '../auth/config.js'
     export default{
         name: 'modal',
         template: '#modal',
@@ -45,7 +46,7 @@ import auth from '../auth/auth.js'
         methods:{
             searchCity: function(){
                 var city = this.cityName
-                this.$http.get('http://localhost:9292/api/city',{params:{'city': city}}).then(function(data){
+                this.$http.get(config.baseURL+config.addCityURL,{params:{'city': city}}).then(function(data){
                     var parsed = JSON.parse(data.body)
                     this.results = parsed['citys']
                 }),(promise)=>{
@@ -54,7 +55,7 @@ import auth from '../auth/auth.js'
             },
             addCity: function(city){
                 var param = {'city': city, 'curr_user': this.$store.state.current_user}
-                this.$http.put('http://localhost:9292/api/update_favorites', param).then(function(data){
+                this.$http.put(config.baseURL+config.updateFavoritesURL, param).then(function(data){
                    this.$store.commit('setFavorites', JSON.parse(data.body))
                 }),(promise)=>{
                     console.log(false)

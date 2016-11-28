@@ -25,6 +25,7 @@
     }
 </style>
 <script>
+import config from '../auth/config.js'
 export default{
     name: "favorite-item",
     data: function(){
@@ -41,7 +42,7 @@ export default{
         },
         getFavorites(){
             var curr_user = this.$store.state.current_user.id
-            this.$http.get('http://localhost:9292/api/forecast',{params: {"id":curr_user}} ).then(function(data){
+            this.$http.get(config.baseURL+config.forecastURL,{params: {"id":curr_user}} ).then(function(data){
                this.forecast = data.body['forecastFavorites']
                this.show = true
                this.hide = true
