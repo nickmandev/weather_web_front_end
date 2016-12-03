@@ -4,7 +4,6 @@ import VueResource from 'vue-resource'
 import Vuex from 'vuex'
 import App from './App.vue'
 import Favorite from './components/Favorite.vue'
-import Signup from './components/Signup.vue'
 import auth from './auth/auth'
 import store from './store/store.js'
 
@@ -20,10 +19,6 @@ const routes = [
         path: '/favorites',
         component: Favorite,
         beforeRouteEnter: auth.checkAuth()
-    },
-    {
-        path:'/signup',
-        component: Signup
     },
     {
         path: '/home',

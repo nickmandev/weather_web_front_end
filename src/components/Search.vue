@@ -44,7 +44,7 @@
 }
 </style>
 <script>
-import map from '../auth/googleApiKey.js'
+import config from '../auth/config.js'
     export default{
         name:'search',
         data: function(){

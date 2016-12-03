@@ -1,22 +1,28 @@
 <template>
     <div id="app" class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default navbar_custom">
                 <div class="col-xs-4">
-                    <span class="navbar-brand text-muted">Weather Web</span>
-                    <button class="btn btn-default navbar-btn" @click='signUp' v-if="!current_user">SignUp</button>
-                    <button class="btn btn-default navbar-btn" @click='logIn' v-if="!current_user">Login</button>
+                    <div class="navbar_right_group">
+                        <span>Weather Web</span>
+                        <span class="navbar_links" @click='signUp' v-if="!current_user">Signup</span>
+                        <span class="navbar_links" @click='logIn' v-if="!current_user">Login</span>
+                    </div>
                 </div>
                 <div class="form-group has-feedback col-xs-4">
                     <input type="text" v-model="city" @keyup.enter="commit(city)"
                            class="form-control navbar-btn" id="search" placeholder=" To search press Enter...">
-                    <span class="glyphicon glyphicon-search form-control-feedback navbar-btn" id="search-btn"></span>
+                    <span class="glyphicon glyphicon-search form-control-feedback navbar-btn">
+                        
+                    </span>
                 </div>
                 <div class="col-xs-4"  v-show="current_user">
-                    <button class="btn btn-default navbar-btn logOut"  @click="logout" v-if="current_user" >
-                        Logout
-                    </button>
-                    <span class="navbar-text logOut" v-if="getUser">Signed in as: {{ getUser }}</span>
+                    <div class="navbar_left_group">
+                        <span  v-if="getUser">Signed in as: {{ getUser }}</span>
+                        <span class="navbar_links" @click="logout" v-if="current_user" >
+                            Logout
+                        </span>
+                    </div>
                 </div>
 
             </nav>
@@ -29,7 +35,7 @@
         <div>
             <search></search>
         </div>
-        <div class="jumbotron">
+        <div class="jumbotron custom_color">
             <p>Hello and welcome to our website. Here you can check the weather on almost every city in the planet.
                 You can create an account and add cities that you frequently check into your Favorites. Our website
                 gives you the data you want via <a href="http://openweathermap.org/" target="_blank">OpenWeather</a>-API.
@@ -101,13 +107,59 @@ span .form-control-feedback {
 .form-group {
     margin: 0px;
     padding: 0px;
+    color: #0fda77;
 }
 
 .logOut{
     float: right;
 }
 
+.navbar_custom{
+    background-color: #0fda77;
+    color: #FFFFFF;
+    font-size: 14pt;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
+.navbar_right_group {
+    float: left;
+    position: relative;
+    top: 10px;
+}
+
+.navbar-btn {
+    color:#0fda77;
+    font-weight: bold;
+
+}
+
+.navbar_links {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.navbar_left_group {
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.custom_color {
+    background-color: #0fda77;
+    color: #FFFFFF;
+}
+
+.btn,
+.btn:hover {
+    background-color: #0fda77;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.jumbotron { 
+    color: #FFFFFF;
+}
 </style>
 <script>
 import auth from './auth/auth.js'
@@ -181,13 +233,14 @@ export default {
         getUser: function(){
             this.current_user = this.$store.state.current_user
             return this.current_user['username']
+            console.log('computed getUser')
         }
     },
 
     watch:{
         current_user: function getFavorites(){
             var id = this.$store.state.current_user.id
-            this.$http.get(config.baseURL+forecastURL,{params:{'id':id}} ).then(function(data){
+            this.$http.get(config.baseURL+config.forecastURL,{params:{'id':id}} ).then(function(data){
                 this.$store.commit('setFavorites',data.body['favorites'])
             }),(response) => {
                 console.log(response)

@@ -2,16 +2,16 @@
     <div id="favorite-item" class="container-fluid">
 
         <div class="col-xs-2 well" v-for="f in forecast" id="weather-box" v-if="show">
-            <h4 class="text-center">{{ f.date }}</h4>
-            <h3 class="text-center">{{ f.day }}</h3>
+            <h3 class="text-center">{{ f.weather_type }}</h3>
+            <h3 class="text-center">{{f.temp_min}}°/{{ f.temp_max}}°</h3>
             <div class="row">
                 <div class="col-xs-6">
                     <h4 >{{ f.city_name}}</h4>
-                    <h4 >{{f.weather_type}}</h4>
-                    <h5 > {{f.temp_min}}°/{{ f.temp_max}}°</h5>
+                    <h4 >{{ f.day }}</h4>
+                    <h5 > {{ f.date }}</h5>
                 </div>
                 <div class="col-xs-2">
-                    <span><object id="svg-icon" type="image/svg+xml" :data="f.icon"></object></span>
+                    <span><svg class="color"type="image/svg+xml" :data="f.icon"></svg></span>
                 </div>
             </div>
         </div>
@@ -22,6 +22,12 @@
 <style>
     #weather-box{
         margin-left: 40px;
+        background-color: #0fda77;
+        color: #ffffff;
+    }
+
+    svg {
+        fill: #fff;
     }
 </style>
 <script>
@@ -44,6 +50,7 @@ export default{
             var curr_user = this.$store.state.current_user.id
             this.$http.get(config.baseURL+config.forecastURL,{params: {"id":curr_user}} ).then(function(data){
                this.forecast = data.body['forecastFavorites']
+               console.log(this.forecast);
                this.show = true
                this.hide = true
             }),(promise)=>{

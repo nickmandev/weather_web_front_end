@@ -21,6 +21,7 @@ export default {
                 localStorage.setItem('token',this.token)
                 this.authenticated = true
                 this.$store.commit('setCurrentUser',this.curr_user)
+                console.log('set current_user')
             }
 
         },(response) => {

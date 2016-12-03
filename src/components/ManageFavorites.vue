@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="panel panel-default well" v-show="this.$store.state.favorites">
-            <div class="panel-heading">
+        <div class="panel panel-default well custom_color" v-show="this.$store.state.favorites">
+            <div class="panel-heading white">
                 <h3 class="panel-title">Favorites</h3>
             </div>
             <ul class="list-group">
@@ -22,6 +22,21 @@
     </div>
 </template>
 <style>
+
+.panel-default > .panel-heading { 
+    background-color: #ffffff;
+    color: #0fda77;
+}
+
+.list-group-item {
+    background-color: #ffffff;
+    color: #0fda77;
+}
+
+.panel-footer { 
+    background-color: #ffffff;
+    color: #0fda77;
+}
 </style>
 <script>
 import auth from '../auth/auth.js'

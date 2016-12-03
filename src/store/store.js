@@ -13,8 +13,8 @@ export default new Vuex.Store({
     },
 
     mutations:{
-        setCurrentUser(state,current_user){
-            state.current_user = current_user
+        setCurrentUser(state,hash){
+            state.current_user = hash
         },
 
         setFavorites(state,array){
