@@ -42,11 +42,12 @@
 import auth from '../auth/auth.js'
 import config from '../auth/config.js'
 import Modal from '../components/Modal.vue'
-export default{
+
+export default {
     name: "manage-favorites",
-    data: function(){
-        return{
-            showModal:false
+    data: function() {
+        return {
+            showModal: false
         }
     },
     methods:{

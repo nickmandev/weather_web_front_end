@@ -11,7 +11,7 @@
                     <h5 > {{ f.date }}</h5>
                 </div>
                 <div class="col-xs-2">
-                    <span><svg class="color"type="image/svg+xml" :data="f.icon"></svg></span>
+                    <span><object class="color" type="image/svg+xml" :data="f.icon"></object></span>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
         color: #ffffff;
     }
 
-    svg {
+    .color path {
         fill: #fff;
     }
 </style>

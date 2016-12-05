@@ -9,7 +9,8 @@ export default new Vuex.Store({
         current_user:'',
         favorites: [],
         forecast: [],
-        cityName: ''
+        cityName: '',
+        loginSignUp: ''
     },
 
     mutations:{
@@ -27,6 +28,10 @@ export default new Vuex.Store({
 
         setCityName(state,name){
             state.cityName = name
+        },
+
+        setLoginSignUp(state,string){
+            state.loginSignUp = string
         }
 
     },
@@ -34,6 +39,11 @@ export default new Vuex.Store({
     getters:{
         getCityName: state=> {
             return state.cityName
+        },
+
+        getLoginSignUp: state=> {
+            console.log('getter');
+            return state.loginSignUp
         }
     }
 })

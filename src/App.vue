@@ -5,8 +5,8 @@
                 <div class="col-xs-4">
                     <div class="navbar_right_group">
                         <span>Weather Web</span>
-                        <span class="navbar_links" @click='signUp' v-if="!current_user">Signup</span>
-                        <span class="navbar_links" @click='logIn' v-if="!current_user">Login</span>
+                        <span class="navbar_links" @click="loginSignUp('signup')" v-if="!current_user">Signup</span>
+                        <span class="navbar_links" @click="loginSignUp('login')" v-if="!current_user">Login</span>
                     </div>
                 </div>
                 <div class="form-group has-feedback col-xs-4">
@@ -33,6 +33,7 @@
             </transition>
         </div>
         <div>
+            <button class="btn btn-primary" @click="showModal = true">show</button>
             <search></search>
         </div>
         <div class="jumbotron custom_color">
@@ -42,6 +43,7 @@
                 You can check it out their api is free of charge and good for experimenting.The website front-end part
                 is powered by VueJs engine, meanwhile at the back-end we use Sinatra with Ruby. It's example project.</p>
         </div>
+        <signuploginmodal v-if="showModal" @close="showModal = false" :type="test"></signuploginmodal>
         <div v-show="!current_user">
         <div v-if="signUpLogIn">
             <div class="form-group">
@@ -128,12 +130,6 @@ span .form-control-feedback {
     top: 10px;
 }
 
-.navbar-btn {
-    color:#0fda77;
-    font-weight: bold;
-
-}
-
 .navbar_links {
     cursor: pointer;
     margin-left: 10px;
@@ -166,6 +162,7 @@ import auth from './auth/auth.js'
 import config from './auth/config.js'
 import Favorite from './components/Favorite.vue'
 import Search from './components/Search.vue'
+import SignUpLoginModal from './components/SignUpLoginModal.vue'
 
 export default {
     data: function() {
@@ -179,13 +176,16 @@ export default {
             },
             current_user: '',
             favorite: {},
+            showModal: false,
+            test: ''
 
             }
     },
 
     components:{
         Favorite,
-        Search
+        Search,
+        "signuploginmodal" : SignUpLoginModal
     },
     methods:{
         mapGetters(){
@@ -227,13 +227,16 @@ export default {
             },
         commit: function(city){
             this.$store.commit('setCityName',city)
+        },
+        loginSignUp: function(string){
+            console.log(string)
+            this.test = string
         }
         },
     computed:{
         getUser: function(){
             this.current_user = this.$store.state.current_user
             return this.current_user['username']
-            console.log('computed getUser')
         }
     },
 
@@ -250,8 +253,6 @@ export default {
 
 
     }
-
-
 }
 
 </script>

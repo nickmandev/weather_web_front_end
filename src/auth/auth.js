@@ -25,7 +25,7 @@ export default {
             }
 
         },(response) => {
-        contex.error = response
+        contex.error = "There's something wrong with the server try again later."
             })
     },
 

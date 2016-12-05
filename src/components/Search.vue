@@ -1,7 +1,8 @@
 <template>
     <div>
         <div v-for="city in oneCity">
-            <div class="row well">
+            <div class="well custom_color">
+                <div class="row">
                 <div class="col-xs-3"> <h2> {{ city.name }}  </h2></div>
                 <div class="col-xs-3"><h3> {{ city.weather_type }}</h3></div>
                 <div class="col-xs-3">
@@ -9,9 +10,10 @@
                 </div>
                 <div class="col-xs-2"><h3> {{ city.temp }}° </h3></div>
                 <div class="col-xs-1"><span class="glyphicon glyphicon-remove" @click="close"></span></div>
+                </div>
             </div>
         </div>
-        <div class="well" v-if="multipleCitys.length > 1">
+        <div class="well custom_color" v-if="multipleCitys.length > 1">
             <div>
                 <h4>Select city:</h4>
             </div>
