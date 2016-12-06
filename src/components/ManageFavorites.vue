@@ -25,17 +25,17 @@
 
 .panel-default > .panel-heading { 
     background-color: #ffffff;
-    color: #0fda77;
+    color: #333745;
 }
 
 .list-group-item {
     background-color: #ffffff;
-    color: #0fda77;
+    color: #333745;
 }
 
 .panel-footer { 
     background-color: #ffffff;
-    color: #0fda77;
+    color: #333745;
 }
 </style>
 <script>

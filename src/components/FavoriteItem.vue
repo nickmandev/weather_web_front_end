@@ -22,13 +22,10 @@
 <style>
     #weather-box{
         margin-left: 40px;
-        background-color: #0fda77;
-        color: #ffffff;
+        background-color: #DAEDE2;
+        color: #333745;
     }
 
-    .color path {
-        fill: #fff;
-    }
 </style>
 <script>
 import config from '../auth/config.js'

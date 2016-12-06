@@ -1,50 +1,44 @@
 <template>
-  <div id="signuploginmodal">
+  <div id="signuploginmodal" v-if="loginSignUp" >
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
+          <span class="glyphicon glyphicon-remove pull-right text_color" @click="$emit('close')"></span>
           <div class="modal-header">
-            {{type}}
+            <div class="alert alert-danger" role="alert" v-if="error" @click="error = false">
+             <strong>{{error}}</strong>
+             <p> To close the error message click on the message</p>
+            </div>
             <div v-if="login">
-            <h3> Enter your credentials </h3>
+            <h4 class="text_color"> Enter your credentials. </h4>
             </div>
             <div v-if="signup">
-              <h3> To register fill the forms beyond. </h3>
+              <h4 class="text_color"> To register fill the forms. </h4>
+              <p> Password and Username must be longer than 6 symbols </p>
             </div>
           </div>
-
           <div class="modal-body">
             <div v-if="login">
               <div class="form-group">
-                <label  for="usr">Username</label>
-                <input v-model="credentials.username" type="text" id="usr" class="form-control">
-                <label  for="pass">Password</label>
-                <input v-model="credentials.password" type="password" id="pass" class="form-control">
+                <input v-model="credentials.username" type="text" class="form-control" placeholder="Username">
+                <br>
+                <input v-model="credentials.password" type="password" class="form-control" placeholder="Password">
+                <br>
                 <button class="btn btn-primary" type="submit" @click="submitLogIn">Logon</button>
             </div>
             </div>
             <div v-if="signup">
               <div class="form-group">
-                <label  for="usr_sign">Username</label>
-                <input v-model="credentials.username" id="usr_sign" type="text" class="form-control" >
-                <label for="pass_sign">Password</label>
-                <input v-model="credentials.password" id="pass_sign" type="password" class="form-control" >
-                <label  for="confPass">Confirm password</label>
-                <input v-model="credentials.confPassword" id="confPass" type="password" class="form-control">
+                <input v-model="credentials.username" type="text" class="form-control" placeholder="Username">
+                <br>
+                <input v-model="credentials.password" type="password" class="form-control" placeholder="Password">
+                <br>
+                <input v-model="credentials.confPassword" type="password" class="form-control" placeholder="Confirm Password">
+                <br>
                 <button class="btn btn-primary" type="submit" @click="submitSignUp">SignUP</button>
               </div>
             </div>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
           </div>
         </div>
       </div>
@@ -53,7 +47,7 @@
   </div>
 </template>
 <script>
-
+import auth from '../auth/auth.js'
 export default { 
     name:'signuploginmodal',
     template: '#signuploginmodal',
@@ -61,25 +55,55 @@ export default {
     data: function() {
           return {
             login: false,
-            signup: false
+            signup: false,
+            test: '',
+            credentials: {
+              username: '',
+              password: '',
+              confPassword: ''
+            },
+            error: ''
           }
     },
 
     methods: {
-
+      submitSignUp(){
+            if(this.credentials.password == this.credentials.confPassword){
+                var credentials = {
+                    username: this.credentials.username,
+                    password: this.credentials.password
+                }
+                auth.signUp(this,credentials)
+            }else{
+                this.error = "Password field's must be identical"
+            }
+      },
+      submitLogIn(){
+            var credentials = {
+                  username: this.credentials.username,
+                  password: this.credentials.password
+                }
+            auth.logIn(this,credentials)
+            if(this.error == ''){
+              this.$emit('close')
+            }
+          },
     },
 
     computed: {
       loginSignUp: function() {
-        console.log('computed')
-      },
+        return this.test = this.type
+      }
       
     },
 
     watch: {
-      type: function() {
-        console.log('test')
-        this.loginSignUp
+      test: function() {
+        if(this.test == 'login'){
+          this.login = true
+        }else{
+          this.signup = true
+        }
       }
     }
 }

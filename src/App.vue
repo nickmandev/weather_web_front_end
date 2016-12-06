@@ -33,7 +33,6 @@
             </transition>
         </div>
         <div>
-            <button class="btn btn-primary" @click="showModal = true">show</button>
             <search></search>
         </div>
         <div class="jumbotron custom_color">
@@ -44,28 +43,6 @@
                 is powered by VueJs engine, meanwhile at the back-end we use Sinatra with Ruby. It's example project.</p>
         </div>
         <signuploginmodal v-if="showModal" @close="showModal = false" :type="test"></signuploginmodal>
-        <div v-show="!current_user">
-        <div v-if="signUpLogIn">
-            <div class="form-group">
-                <label  for="usr">Username</label>
-                <input v-model="credentials.username" type="text" id="usr" class="form-control">
-                <label  for="pass">Password</label>
-                <input v-model="credentials.password" type="password" id="pass" class="form-control">
-                <button class="btn btn-primary" type="submit" @click="submitLogIn">Logon</button>
-            </div>
-        </div>
-        <div v-else="signUpLogIn">
-            <div class="form-group">
-                <label  for="usr_sign">Username</label>
-                <input v-model="credentials.username" id="usr_sign" type="text" class="form-control" >
-                <label for="pass_sign">Password</label>
-                <input v-model="credentials.password" id="pass_sign" type="password" class="form-control" >
-                <label  for="confPass">Confirm password</label>
-                <input v-model="credentials.confPassword" id="confPass" type="password" class="form-control">
-                <button class="btn btn-primary" type="submit" @click="submitSignUp">SignUP</button>
-            </div>
-        </div>
-        </div>
         <div class="row">
             <favorite v-show="current_user"></favorite>
         </div>
@@ -109,7 +86,7 @@ span .form-control-feedback {
 .form-group {
     margin: 0px;
     padding: 0px;
-    color: #0fda77;
+    color: #333745;
 }
 
 .logOut{
@@ -117,8 +94,8 @@ span .form-control-feedback {
 }
 
 .navbar_custom{
-    background-color: #0fda77;
-    color: #FFFFFF;
+    background-color: #333745;
+    color: #DAEDE2;
     font-size: 14pt;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -142,19 +119,27 @@ span .form-control-feedback {
 }
 
 .custom_color {
-    background-color: #0fda77;
-    color: #FFFFFF;
+    background-color: #DAEDE2;
+    color: #333745;
 }
 
 .btn,
 .btn:hover {
-    background-color: #0fda77;
+    background-color: #DAEDE2;
     border-color: #FFFFFF;
-    color: #FFFFFF;
+    color: #333745;
 }
 
 .jumbotron { 
-    color: #FFFFFF;
+    color: #333745;
+}
+
+.text_color {
+    color: #333745;
+}
+
+body {
+    background-color: #77c4d3;
 }
 </style>
 <script>
@@ -194,25 +179,6 @@ export default {
         removeErrorMessage(){
             this.error = false
             },
-        submitLogIn(){
-            var credentials = {
-                  username: this.credentials.username,
-                  password: this.credentials.password
-                }
-            auth.logIn(this,credentials,'/favorites')
-
-            },
-        submitSignUp(){
-            if(this.credentials.password == this.credentials.confPassword){
-                var credentials = {
-                    username: this.credentials.username,
-                    password: this.credentials.password
-                }
-                auth.signUp(this,credentials)
-            }else{
-                this.error = "Password field's must be identical"
-                }
-            },
         logout(){
             auth.logOut(this)
             this.isLoggedIn = false
@@ -220,17 +186,16 @@ export default {
             },
         logIn(){
             this.signUpLogIn = true
-
             },
         signUp(){
             this.signUpLogIn = false
             },
         commit: function(city){
             this.$store.commit('setCityName',city)
-        },
+            },
         loginSignUp: function(string){
-            console.log(string)
             this.test = string
+            this.showModal = true
         }
         },
     computed:{

@@ -39,7 +39,4 @@ export default{
 }
 </script>
 <style>
-.custom_color {
-    background-color: #0fda77;
-}
 </style>

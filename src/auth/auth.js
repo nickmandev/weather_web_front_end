@@ -21,9 +21,7 @@ export default {
                 localStorage.setItem('token',this.token)
                 this.authenticated = true
                 this.$store.commit('setCurrentUser',this.curr_user)
-                console.log('set current_user')
             }
-
         },(response) => {
         contex.error = "There's something wrong with the server try again later."
             })
@@ -31,9 +29,10 @@ export default {
 
     signUp(contex,credentials){
         contex.$http.post(SIGN_UP_URL,credentials).then(function(data){
-            contex.error = 'Account created successfully'
+            let error = JSON.parse(data.body)
+            contex.error = error.message    
         }, (response)=> {
-            contex.error = 'Error when creating!'
+            contex.error = "Server is down. Try again later."
         })
 
     },
