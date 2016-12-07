@@ -10,16 +10,15 @@
                     </div>
                 </div>
                 <div class="form-group has-feedback col-xs-4">
-                    <input type="text" v-model="city" @keyup.enter="commit(city)"
-                           class="form-control navbar-btn" id="search" placeholder=" To search press Enter...">
+                    <input type="text" v-model="city" @keyup.enter="commit(city)" class="form-control navbar-btn" id="search" placeholder=" To search press Enter...">
                     <span class="glyphicon glyphicon-search form-control-feedback navbar-btn">
                         
                     </span>
                 </div>
-                <div class="col-xs-4"  v-show="current_user">
+                <div class="col-xs-4" v-show="current_user">
                     <div class="navbar_left_group">
-                        <span  v-if="getUser">Signed in as: {{ getUser }}</span>
-                        <span class="navbar_links" @click="logout" v-if="current_user" >
+                        <span v-if="getUser">Signed in as: {{ getUser }}</span>
+                        <span class="navbar_links" @click="logout" v-if="current_user">
                             Logout
                         </span>
                     </div>
@@ -29,20 +28,20 @@
         </div>
         <div v-show="error">
             <transition name="slide-fade">
-            <h5> {{error}} <span class="glyphicon glyphicon-remove" @click="error = false"></span></h5>
+                <h5> {{error}} <span class="glyphicon glyphicon-remove" @click="error = false"></span></h5>
             </transition>
         </div>
         <div>
             <search></search>
         </div>
         <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 custom_text_style">
-            <p>Hello and welcome to our website. Here you can check the weather on almost every city in the planet.
-                You can create an account and add cities that you frequently check into your Favorites. Our website
-                gives you the data you want via <a href="http://openweathermap.org/" target="_blank">OpenWeather</a>-API.
-                You can check it out their api is free of charge and good for experimenting.The website front-end part
-                is powered by VueJs engine, meanwhile at the back-end we use Sinatra with Ruby. It's example project.</p>
-        </div>
+            <div class="col-xs-10 col-xs-offset-1 custom_text_style">
+                <p>Hello and welcome to our website. Here you can check the weather on almost every city in the planet. You
+                    can create an account and add cities that you frequently check into your Favorites. Our website gives
+                    you the data you want via <a href="http://openweathermap.org/" target="_blank">OpenWeather</a>-API. You
+                    can check it out their api is free of charge and good for experimenting.The website front-end part is
+                    powered by VueJs engine, meanwhile at the back-end we use Sinatra with Ruby. It's example project.</p>
+            </div>
         </div>
         <signuploginmodal v-if="showModal" @close="showModal = false" :type="test"></signuploginmodal>
         <div class="row">
@@ -52,88 +51,100 @@
     </div>
 </template>
 <style>
-.slide-fade-leave-active{
-    transition: all .3s ease;
-}
-
-.slide-fade-enter-active{
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-
-.slide-fade-enter, .slide-fade-leave-active{
-    padding-left: 10px;
-    opacity: 0;
-}
-
-span .form-control-feedback {
-    width: 10%;
-}
-
-#search {
-    padding: 0;
-    padding-right: 35px;
-    width: 1%;
-    -webkit-transition: width 1s ease-in-out;
-    -moz-transition: width 1s ease-in-out;
-    -o-transition: width 1s ease-in-out;
-    transition: width 1s ease-in-out;
-    float: right;
-}
-
-#search:focus{
-    width: 80%;
-}
-
-
-.form-group {
-    margin: 0px;
-    padding: 0px;
-    color: #333745;
-}
-
-.logOut{
-    float: right;
-}
-
-.navbar_custom{
-    background-color: #333745;
-    color: #fff;
-    font-size: 14pt;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.navbar_right_group {
-    float: left;
-    position: relative;
-    top: 10px;
-}
-
-.navbar_links {
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-.navbar_left_group {
-    float: right;
-    position: relative;
-    top: 10px;
-}
-
-.custom_color {
-    background-color: #DAEDE2;
-    color: #333745;
-}
-
-.custom_text_style { 
-    color: #000;
-    font-size: 18pt;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.text_color {
-    color: #333745;
-}
+    .slide-fade-leave-active {
+        transition: all .3s ease;
+    }
+    
+    .slide-fade-enter-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    
+    .slide-fade-enter,
+    .slide-fade-leave-active {
+        padding-left: 10px;
+        opacity: 0;
+    }
+    
+    span .form-control-feedback {
+        width: 10%;
+    }
+    
+    #search {
+        padding: 0;
+        padding-right: 35px;
+        width: 1%;
+        -webkit-transition: width 1s ease-in-out;
+        -moz-transition: width 1s ease-in-out;
+        -o-transition: width 1s ease-in-out;
+        transition: width 1s ease-in-out;
+        float: right;
+    }
+    
+    #search:focus {
+        width: 80%;
+    }
+    
+    .form-group {
+        margin: 0px;
+        padding: 0px;
+        color: #333745;
+    }
+    
+    .logOut {
+        float: right;
+    }
+    
+    .navbar_custom {
+        background-color: #333745;
+        color: #fff;
+        font-size: 14pt;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    .navbar_right_group {
+        float: left;
+        position: relative;
+        top: 10px;
+    }
+    
+    .navbar_links {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+    .navbar_left_group {
+        float: right;
+        position: relative;
+        top: 10px;
+    }
+    
+    .custom_color {
+        background-color: #DAEDE2;
+        color: #333745;
+    }
+    
+    .custom_text_style {
+        color: #000;
+        font-size: 18pt;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .text_color {
+        color: #333745;
+    }
+    
+    .button_clear {
+        background: transparent;
+        border: none;
+    }
+    
+    .button_style {
+        background-color: #333745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+    }
 </style>
 <script>
 import auth from './auth/auth.js'

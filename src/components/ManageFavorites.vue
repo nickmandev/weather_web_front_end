@@ -7,8 +7,8 @@
             <ul class="list-group">
                 <li class="list-group-item" v-for="fav in this.$store.state.favorites">
                     {{fav.name}}
-                    <button class="glyphicon glyphicon-remove btn-defaut pull-right" @click="removeCity(fav)">
-
+                    <button class="button_clear pull-right" @click="removeCity(fav)">
+                        <i class="glyphicon glyphicon-remove"></i>
                     </button>
                 </li>
             </ul>
@@ -22,21 +22,20 @@
     </div>
 </template>
 <style>
-
-.panel-default > .panel-heading { 
-    background-color: #ffffff;
-    color: #000;
-}
-
-.list-group-item {
-    background-color: #ffffff;
-    color: #000;
-}
-
-.panel-footer { 
-    background-color: #ffffff;
-    color: #000;
-}
+    .panel-default > .panel-heading {
+        background-color: #ffffff;
+        color: #000;
+    }
+    
+    .list-group-item {
+        background-color: #ffffff;
+        color: #000;
+    }
+    
+    .panel-footer {
+        background-color: #ffffff;
+        color: #000;
+    }
 </style>
 <script>
 import auth from '../auth/auth.js'
