@@ -1,6 +1,6 @@
 <template>
     <div id="favorite" class="container-fluid">
-        <div class="jumbotron custom_color">
+        <div class="custom_text_style">
             <h2 class="text-center">Favorites</h2>
             <p class="text-center">From this section of the app you can add or remove city's from Favorites.</p>
             <p class="text-center">Check the weather for specific city, check 5 day-forecast for your Favorites.</p>

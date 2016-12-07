@@ -75,7 +75,6 @@ import config from '../auth/config.js'
             viewMap: function(lat,long){
                 let URL = config.googleApiURL + lat + ","+ long + config.googleApiOptions + config.googleApiKey
                     this.url = URL
-                    console.log(this.url)
                     this.showImg = true
             }
         },

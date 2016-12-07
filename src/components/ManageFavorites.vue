@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div class="panel panel-default well custom_color" v-show="this.$store.state.favorites">
-            <div class="panel-heading white">
+    <div class="row">
+        <div class=" col-xs-10 col-xs-offset-1 panel panel-default" v-show="this.$store.state.favorites">
+            <div class="panel-heading">
                 <h3 class="panel-title">Favorites</h3>
             </div>
             <ul class="list-group">
@@ -13,7 +13,7 @@
                 </li>
             </ul>
             <div class="panel-footer">
-                <button class="btn btn-default" @click="modal">Add City</button>
+                <button class="button_style" @click="modal">Add City</button>
 
             </div>
             <modal v-if="showModal" @close="showModal = false">
@@ -25,17 +25,17 @@
 
 .panel-default > .panel-heading { 
     background-color: #ffffff;
-    color: #333745;
+    color: #000;
 }
 
 .list-group-item {
     background-color: #ffffff;
-    color: #333745;
+    color: #000;
 }
 
 .panel-footer { 
     background-color: #ffffff;
-    color: #333745;
+    color: #000;
 }
 </style>
 <script>

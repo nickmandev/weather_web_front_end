@@ -1,11 +1,11 @@
 <template>
   <div id="signuploginmodal" v-if="loginSignUp" >
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+  <transition name="login-modal">
+    <div class="login-modal-mask">
+      <div class="login-modal-wrapper">
+        <div class="login-modal-container">
           <span class="glyphicon glyphicon-remove pull-right text_color" @click="$emit('close')"></span>
-          <div class="modal-header">
+          <div class="login-modal-header">
             <div class="alert alert-danger" role="alert" v-if="error" @click="error = false">
              <strong>{{error}}</strong>
              <p> To close the error message click on the message</p>
@@ -18,7 +18,7 @@
               <p> Password and Username must be longer than 6 symbols </p>
             </div>
           </div>
-          <div class="modal-body">
+          <div class="login-modal-body">
             <div v-if="login">
               <div class="form-group">
                 <input v-model="credentials.username" type="text" class="form-control" placeholder="Username">
@@ -110,7 +110,7 @@ export default {
 </script>
 <style>
 
-.modal-mask {
+.login-modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -122,12 +122,12 @@ export default {
   transition: opacity .3s ease;
 }
 
-.modal-wrapper {
+.login-modal-wrapper {
   display: table-cell;
   vertical-align: middle;
 }
 
-.modal-container {
+.login-modal-container {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
@@ -138,12 +138,12 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
+.login-modal-header h3 {
   margin-top: 0;
   color: #42b983;
 }
 
-.modal-body {
+.login-modal-body {
   margin: 20px 0;
 }
 
@@ -159,8 +159,8 @@ export default {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modal-enter .login-modal-container,
+.modal-leave-active .login-modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }

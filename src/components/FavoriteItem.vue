@@ -1,7 +1,7 @@
 <template>
-    <div id="favorite-item" class="container-fluid">
-
-        <div class="col-xs-2 well" v-for="f in forecast" id="weather-box" v-if="show">
+    <div id="favorite-item " class="container">
+        <div class="row custom_row_style">
+        <div class="col-xs-2 " v-for="f in forecast" id="weather-box" v-if="show">
             <h3 class="text-center">{{ f.weather_type }}</h3>
             <h3 class="text-center">{{f.temp_min}}°/{{ f.temp_max}}°</h3>
             <div class="row">
@@ -15,15 +15,30 @@
                 </div>
             </div>
         </div>
-        <button type="submit" @click="getFavorites" class="btn btn-default" v-if="!hide">Show Favorites</button>
-        <button type="submit" @click="hideFavorites" class="btn btn-default" v-if="hide">Hide Favorites</button>
+        </div>
+        <button type="submit" @click="getFavorites" class="button_style" v-if="!hide">Show Favorites</button>
+        <button type="submit" @click="hideFavorites" class="button_style" v-if="hide">Hide Favorites</button>
     </div>
 </template>
 <style>
     #weather-box{
-        margin-left: 40px;
-        background-color: #DAEDE2;
-        color: #333745;
+        margin-left: 30px;
+        color: #000;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-bottom-width: 0px;
+    }
+    
+    .button_style { 
+        background-color: #333745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+    }
+
+    .custom_row_style {
+        border-right-style: solid;
+        border-left-style: solid;
     }
 
 </style>

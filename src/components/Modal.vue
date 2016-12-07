@@ -1,28 +1,37 @@
 <template>
-<div id="modal">
+<div id="favorite_modal">
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <button class="glyphicon glyphicon-remove pull-right button_style" @click="$emit('close')"></button>
             <div class="modal-header">
-                <button class="btn btn-default btn-xs modal-default-button" @click="$emit('close')">X</button>
-                <h4>Type the name of the city you want to add to Favorites, then click on the
-                <span class="glyphicon glyphicon-plus"></span> to add it.</h4>
+              <slot>
+                <h4>Type the name of the city you want to add to favorites</h4>
+              </slot>
             </div>
           <div class="modal-body">
               <input type="text" class="form-control" placeholder="Press Enter to search..." v-model="cityName" @keyup.enter="searchCity">
+              <transition name="slide-fade">
+              <div v-if="showImg" class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                  <br>
+                  <strong>To close the image click on it.</strong>
+                  <img id="map" :src="url"  @click="showImg = false">
+                  </div>
+              </div>
+              </transition>
               <ul class="list-group" v-show="results">
                 <li class="list-group-item" v-for="res in results">
-                    <h4> {{res.city_name}}, {{res.country}}, Lat: {{res.latitude}}, Long: {{res.longitude}}
-                        <span class="glyphicon glyphicon-plus pull-right" @click="addCity(res)"></span>
+                    <h4> {{res.city_name}}, {{res.country}}
+                      <div class="pull-right">
+                        <span class="glyphicon glyphicon-plus" @click="addCity(res)"></span>
+                        <span class="glyphicon glyphicon-map-marker" @click="viewMap(res.latitude,res.longitude)"></span>
+                      </div>
                     </h4>
                 </li>
               </ul>
           </div>
-
-          <div class="modal-footer">
-            <div name="footer">
-            </div>
           </div>
         </div>
       </div>
@@ -40,7 +49,8 @@ import config from '../auth/config.js'
         data: function(){
             return{
                 cityName:'',
-                results:[]
+                results:[],
+                showImg: false
             }
         },
         methods:{
@@ -60,14 +70,19 @@ import config from '../auth/config.js'
                 }),(promise)=>{
                     console.log(false)
                 }
+            },
+            viewMap: function(lat, long){
+                let URL = config.googleApiURL + lat + ","+ long + config.googleApiOptions + config.googleApiKey
+                    this.url = URL
+                    this.showImg = true
             }
 
         },
     }
 </script>
 <style>
-  modal-mask {
-  position: center;
+.modal-mask {
+  position: fixed;
   z-index: 9998;
   top: 0;
   left: 0;
@@ -80,12 +95,13 @@ import config from '../auth/config.js'
 
 .modal-wrapper {
   display: table-cell;
-  vertical-align: center;
+  vertical-align: middle;
 }
 
 .modal-container {
   width: 600px;
-  margin-left: 15px;
+  max-width: 100%;
+  margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
@@ -100,12 +116,7 @@ import config from '../auth/config.js'
 }
 
 .modal-body {
-  margin: 20px 0;
-  width: 100%;
-}
-
-.modal-default-button {
-  float: right;
+  max-width: 100%;
 }
 
 .modal-enter {
@@ -121,4 +132,21 @@ import config from '../auth/config.js'
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+#map {
+  width: 400px;
+  margin-bottom: 10px;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-active {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 </style>

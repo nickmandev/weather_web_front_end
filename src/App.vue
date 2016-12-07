@@ -35,12 +35,14 @@
         <div>
             <search></search>
         </div>
-        <div class="jumbotron custom_color">
+        <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 custom_text_style">
             <p>Hello and welcome to our website. Here you can check the weather on almost every city in the planet.
                 You can create an account and add cities that you frequently check into your Favorites. Our website
                 gives you the data you want via <a href="http://openweathermap.org/" target="_blank">OpenWeather</a>-API.
                 You can check it out their api is free of charge and good for experimenting.The website front-end part
                 is powered by VueJs engine, meanwhile at the back-end we use Sinatra with Ruby. It's example project.</p>
+        </div>
         </div>
         <signuploginmodal v-if="showModal" @close="showModal = false" :type="test"></signuploginmodal>
         <div class="row">
@@ -95,7 +97,7 @@ span .form-control-feedback {
 
 .navbar_custom{
     background-color: #333745;
-    color: #DAEDE2;
+    color: #fff;
     font-size: 14pt;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -123,23 +125,14 @@ span .form-control-feedback {
     color: #333745;
 }
 
-.btn,
-.btn:hover {
-    background-color: #DAEDE2;
-    border-color: #FFFFFF;
-    color: #333745;
-}
-
-.jumbotron { 
-    color: #333745;
+.custom_text_style { 
+    color: #000;
+    font-size: 18pt;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .text_color {
     color: #333745;
-}
-
-body {
-    background-color: #77c4d3;
 }
 </style>
 <script>
