@@ -13,28 +13,44 @@
                 </div>
             </div>
         </div> -->
-        <div class="row">
-            <div class="col-xs-2" v-show="forecastByName" v-for="fore in forecastByName">
-                <h4 class="text-center">{{ fore.weather_type }}</h4>
-                <h4 class="text-center">{{fore.temp_min}}°/{{ fore.temp_max}}°</h4>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <h4>{{ fore.day }}</h4>
-                        <h5> {{ fore.date }}</h5>
-                    </div>
-                    <div class="col-xs-2">
-                        <span><object class="color" type="image/svg+xml" :data="fore.icon"></object></span>
+        <br>
+        <div>
+            <el-dropdown>
+                <h4> To view 5-day forecast select city from
+                    <span class="el-dropdown-link">
+    Favorites<i class="el-icon-caret-bottom el-icon--right"></i>
+  </span></h4>
+
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for="fav in this.$store.state.favorites">
+                        <span @click="getCity(fav)"> {{fav.name}}</span>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+        <div v-if="cityName" class="weather-box-div">
+            <h2>{{cityName}}</h2>
+            <div class="row" v-if="simple_forecast">
+                <div class="col-xs-2 weather-box" v-for="f in simple_forecast">
+                    <h3 class="text-center">{{ f.weather_type }}</h3>
+                    <h3 class="text-center">{{f.temp_min}}°/{{ f.temp_max}}°</h3>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>{{ f.day }}</h4>
+                            <h5> {{ f.date }}</h5>
+                        </div>
+                        <div class="col-xs-2">
+                            <span><object type="image/svg+xml" :data="f.icon"></object></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <button type="submit" @click="getFavorites" class="button_style" v-if="!hide">Show Favorites</button>
-        <button type="submit" @click="hideFavorites" class="button_style" v-if="hide">Hide Favorites</button>
     </div>
+
 </template>
 <style>
-    #weather-box {
+    .weather-box {
         margin-left: 30px;
         color: #000;
         border-bottom-style: solid;
@@ -55,8 +71,8 @@ export default{
             forecast:[],
             hide: false,
             show: true,
-            favorites: [],
-            forecastByName: []
+            cityName: '',
+            simple_forecast: []
         }
     },
     methods:{
@@ -69,6 +85,7 @@ export default{
             this.$http.get(config.baseURL+config.forecastURL,{params: {"id":curr_user}} ).then(function(data){
                this.forecast = data.body['forecastFavorites']
                this.favorites = data.body['favorites']
+               console.log(this.favorites)
                this.show = true
                this.hide = true
             }),(promise)=>{
@@ -82,9 +99,20 @@ export default{
                     this.forecastByName.push(fore[j])
                 }
             }
+        },
+        getCity: function(city){
+            this.cityName = city.name
+            this.$http.get(config.baseURL + config.oneCityForecast, {params: {'city_id': city.city_id}}).then(function(data){
+                let parsed = JSON.parse(data.body)
+                this.simple_forecast = parsed.simplified_forecast
+                this.forecast = parsed.forecast
+            }),(promise)=>{
+                console.log(response)
+            }
         }
     },
     computed:{
+       
     }
 
 

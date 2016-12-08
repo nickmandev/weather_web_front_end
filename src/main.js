@@ -6,10 +6,13 @@ import App from './App.vue'
 import Favorite from './components/Favorite.vue'
 import auth from './auth/auth'
 import store from './store/store.js'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(Vuex)
+Vue.use(ElementUI)
 
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 
