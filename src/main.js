@@ -16,7 +16,17 @@ Vue.use(ElementUI)
 
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 
-
+Vue.filter('hours', function (value){
+    let date = new Date(value)
+    let hours =  date.getHours() - 2
+    let minutes = date.getMinutes() + "0"
+    if(hours < 10){
+        return "0" + hours + ":" + minutes
+    }else {
+        return hours + ":" + minutes
+    }
+    
+})
 const routes = [
     {
         path: '/favorites',
